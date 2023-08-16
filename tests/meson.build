@@ -72,6 +72,9 @@ self_test = executable(
   self_test_sources,
   include_directories: ['../src', './SelfTest'],
   link_with: [catch2_with_main, catch2],
+  build_by_default: meson.is_subproject() == false
 )
 
-test('SelfTest', self_test)
+if meson.is_subproject() == false
+  test('Catch2SelfTest', self_test)
+endif
