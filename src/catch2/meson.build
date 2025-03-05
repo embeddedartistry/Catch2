@@ -360,12 +360,24 @@ catch2 = static_library(
   dependencies: catch2_dependencies,
   include_directories: '..',
   install: get_option('install'),
-  native: true,
   build_by_default: meson.is_subproject() == false
 )
 
 catch2_dep = declare_dependency(
   link_with: catch2,
+  include_directories: '..',
+)
+
+catch2_native = static_library(
+  'Catch2_native',
+  sources,
+  include_directories: '..',
+  native: true,
+  build_by_default: meson.is_subproject() == false
+)
+
+catch2_native_dep = declare_dependency(
+  link_with: catch2_native,
   include_directories: '..',
 )
 
@@ -384,12 +396,25 @@ catch2_with_main = static_library(
   link_with: catch2,
   include_directories: '..',
   install: get_option('install'),
-  native: true,
   build_by_default: meson.is_subproject() == false
 )
 
 catch2_with_main_dep = declare_dependency(
   link_with: [catch2, catch2_with_main],
+  include_directories: '..',
+)
+
+catch2_with_main_native = static_library(
+  'Catch2Main_native',
+  'internal/catch_main.cpp',
+  link_with: catch2_native,
+  include_directories: '..',
+  install: get_option('install'),
+  build_by_default: meson.is_subproject() == false
+)
+
+catch2_with_main_native_dep = declare_dependency(
+  link_with: [catch2_native, catch2_with_main_native],
   include_directories: '..',
 )
 
