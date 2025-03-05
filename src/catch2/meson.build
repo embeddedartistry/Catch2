@@ -410,6 +410,7 @@ catch2_with_main_native = static_library(
   link_with: catch2_native,
   include_directories: '..',
   install: get_option('install'),
+  native: true,
   build_by_default: meson.is_subproject() == false
 )
 
